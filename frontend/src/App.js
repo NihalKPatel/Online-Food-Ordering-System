@@ -10,7 +10,6 @@ import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
-import BoardAdmin from "./components/board-admin.component";
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
@@ -71,13 +70,7 @@ class App extends Component {
                   Home
                 </Link>
               </li>
-              {showAdminBoard && (
-                  <li className="nav-item">
-                    <Link to={"/admin"} className="nav-link">
-                      Admin Board
-                    </Link>
-                  </li>
-              )}
+
 
               {currentUser && (
                   <li className="nav-item">
@@ -125,7 +118,6 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />
               <Route path="/user" component={BoardUser} />
-              <Route path="/admin" component={BoardAdmin} />
             </Switch>
           </div>
 

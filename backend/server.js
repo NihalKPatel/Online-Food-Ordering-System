@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended: true}));
 // database
 const db = require("./app/models");
 const Role = db.role;
-
+const User = db.user;
 db.sequelize.sync();
 
 // simple route
@@ -43,8 +43,30 @@ function initial() {
         name: "user"
     });
 
-    Role.create({
-        id: 3,
-        name: "admin"
-    });
+    User.create({
+        firstname: "Nihal",
+        lastname: "Patel",
+        address: "1234 Main St",
+        username: "nihal",
+        email: "nihal@gmail.com",
+        password: "nihal123"
+    })
+
+    User.create({
+        firstname: "Hamesh",
+        lastname: "Patel",
+        address: "1234 Main St",
+        username: "hamesh",
+        email: "hamesh@gmail.com",
+        password: "hamesh123"
+    })
+
+    User.create({
+        firstname: "Suwesh",
+        lastname: "Ranjitkar",
+        address: "1234 Main St",
+        username: "suwesh",
+        email: "suwesh@gmail.com",
+        password: "suwesh123"
+    })
 }
