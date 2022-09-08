@@ -27,19 +27,18 @@ db.sequelize = sequelize;
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.menu = require("../models/menu.model.js")(sequelize, Sequelize);
-db.resturant = require("../models/restaurant.model.js")(sequelize, Sequelize);
+db.restaurant = require("../models/restaurant.model.js")(sequelize, Sequelize);
 
-db.role.belongsToMany(db.user, {
-    through: "user_roles",
-    foreignKey: "roleId",
-    otherKey: "userId"
+db.restaurant.hasMany(db.menu, {
+    foreignKey: "restaurantId",
+    as: "menus"
 });
-db.user.belongsToMany(db.role, {
-    through: "user_roles",
-    foreignKey: "userId",
-    otherKey: "roleId"
+db.menu.belongsTo(db.restaurant, {
+    foreignKey: "restaurantId",
+    as: "restaurant",
 });
 
 db.ROLES = ["user"];
+
 
 module.exports = db;

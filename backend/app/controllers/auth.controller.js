@@ -2,11 +2,12 @@ const db = require("../models");
 const config = require("../config/auth.config");
 const User = db.user;
 const Role = db.role;
-
+const Restaurant = db.restaurant;
 const Op = db.Sequelize.Op;
-
+const Menu = db.menu;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const {where} = require("sequelize");
 
 exports.signup = (req, res) => {
     // Save User to Database
@@ -42,6 +43,15 @@ exports.signup = (req, res) => {
             res.status(500).send({message: err.message});
         });
 };
+
+exports.getrestaurant = (req, res) => {
+    Restaurant.findAll({
+        include: ["menus"],
+    }).then((restaurants) => {
+        res.send(restaurants);
+        return restaurants;
+    });
+}
 
 exports.signin = (req, res) => {
     User.findOne({

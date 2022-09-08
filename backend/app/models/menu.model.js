@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
     return sequelize.define("menus", {
         name: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
         },
         price: {
             type: Sequelize.STRING
@@ -12,5 +12,9 @@ module.exports = (sequelize, Sequelize) => {
         image: {
             type: Sequelize.STRING
         },
+        restaurantId: {
+            type: Sequelize.INTEGER,
+            foreignKey: true
+        }
     });
 };

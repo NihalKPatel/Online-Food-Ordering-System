@@ -1,5 +1,6 @@
 const {authJwt} = require("../middleware");
 const controller = require("../controllers/user.controller");
+const food = require("../controllers/auth.controller");
 
 module.exports = function (app) {
     app.use(function (req, res, next) {
@@ -18,4 +19,5 @@ module.exports = function (app) {
         controller.userBoard
     );
 
+    app.get("/api/test/restaurant", food.getrestaurant);
 };
