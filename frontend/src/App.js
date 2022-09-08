@@ -56,7 +56,7 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser, showAdminBoard } = this.state;
+    const { currentUser} = this.state;
 
     return (
         <div>

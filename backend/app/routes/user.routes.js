@@ -1,6 +1,7 @@
 const {authJwt} = require("../middleware");
 const controller = require("../controllers/user.controller");
 const food = require("../controllers/auth.controller");
+const router = require("express").Router();
 
 module.exports = function (app) {
     app.use(function (req, res, next) {
@@ -11,13 +12,14 @@ module.exports = function (app) {
         next();
     });
 
-    app.get("/api/test/all", controller.allAccess);
+    router.get("/all", controller.allAccess);
 
-    app.get(
-        "/api/test/user",
+    router.get(
+        "/user",
         [authJwt.verifyToken],
         controller.userBoard
     );
 
-    app.get("/api/test/restaurant", food.getrestaurant);
+    router.get("/restaurant", food.getrestaurant);
+    app.use('/api/user', router);
 };
