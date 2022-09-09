@@ -5,7 +5,7 @@ const Restaurant = db.restaurant;
 const Menu = db.menu;
 
 module.exports = function (initial) {
-     {
+    {
         Role.create({
             id: 1,
             name: "user"
@@ -121,6 +121,6 @@ module.exports = function (initial) {
                 console.log('error: ' + err);
             });
     }
-return initial;
-    }
+    return initial;
+}
 
