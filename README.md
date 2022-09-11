@@ -23,7 +23,6 @@ port: 3306,
         idle: 10000
     }
 };
-
 ```
 
 - Start the API - `node server.js` - The API will be running on localhost:8080
