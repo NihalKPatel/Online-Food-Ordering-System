@@ -1,3 +1,4 @@
+const moment = require("moment");
 module.exports = (sequelize, Sequelize) => {
     return sequelize.define("users", {
         username: {
@@ -19,7 +20,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         dob:{
-            type: Sequelize.DATE
+            type: Sequelize.DATEONLY,
+            allowNull: false,
+            get: function() {
+                return moment(this.getDataValue('dob')).format('DD/MM/YYYY')
+            }
         }
 
     });

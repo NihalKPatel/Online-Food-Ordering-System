@@ -36,6 +36,46 @@ const vusername = value => {
     }
 };
 
+const vfirstname = value => {
+    if (value.length < 3 || value.length > 20) {
+        return (
+            <div className="alert alert-danger" role="alert">
+                The first name must be between 3 and 20 characters.
+            </div>
+        );
+    }
+}
+
+const vlastname = value => {
+    if (value.length < 3 || value.length > 20) {
+        return (
+            <div className="alert alert-danger" role="alert">
+                The last name must be between 3 and 20 characters.
+            </div>
+        );
+    }
+}
+
+const vaddress = value => {
+    if (value.length < 1) {
+        return (
+            <div className="alert alert-danger" role="alert">
+                The address must be a valid address.
+            </div>
+        );
+    }
+}
+
+const vdob = value => {
+    if (value.length < 1) {
+        return (
+            <div className="alert alert-danger" role="alert">
+                The date of birth must be a valid date.
+            </div>
+        );
+    }
+}
+
 const vpassword = value => {
     if (value.length < 6 || value.length > 40) {
         return (
@@ -51,13 +91,22 @@ export default class Register extends Component {
         super(props);
         this.handleRegister = this.handleRegister.bind(this);
         this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangeFirstname = this.onChangeFirstname.bind(this);
+        this.onChangeLastname = this.onChangeLastname.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
+        this.onChangeAddress = this.onChangeAddress.bind(this);
+        this.onChangeDob = this.onChangeDob.bind(this);
+
 
         this.state = {
             username: "",
             email: "",
             password: "",
+            firstname: "",
+            lastname: "",
+            address: "",
+            dob: "",
             successful: false,
             message: ""
         };
@@ -81,6 +130,30 @@ export default class Register extends Component {
         });
     }
 
+    onChangeFirstname(e) {
+        this.setState({
+            firstname: e.target.value
+        });
+    }
+
+    onChangeLastname(e) {
+        this.setState({
+            lastname: e.target.value
+        });
+    }
+
+    onChangeAddress(e) {
+        this.setState({
+            address: e.target.value
+        });
+    }
+
+    onChangeDob(e) {
+        this.setState({
+            dob: e.target.value
+        });
+    }
+
     handleRegister(e) {
         e.preventDefault();
 
@@ -95,7 +168,12 @@ export default class Register extends Component {
             AuthService.register(
                 this.state.username,
                 this.state.email,
-                this.state.password
+                this.state.password,
+                this.state.firstname,
+                this.state.lastname,
+                this.state.address,
+                this.state.dob
+
             ).then(
                 response => {
                     this.setState({
@@ -171,6 +249,54 @@ export default class Register extends Component {
                                         value={this.state.password}
                                         onChange={this.onChangePassword}
                                         validations={[required, vpassword]}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="firstname">First Name</label>
+                                    <Input
+                                        type="text"
+                                        className="form-control"
+                                        name="firstname"
+                                        value={this.state.firstname}
+                                        onChange={this.onChangeFirstname}
+                                        validations={[required, vfirstname]}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="lastname">Last Name</label>
+                                    <Input
+                                        type="text"
+                                        className="form-control"
+                                        name="lastname"
+                                        value={this.state.lastname}
+                                        onChange={this.onChangeLastname}
+                                        validations={[required, vlastname]}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="dob">Date of Birth</label>
+                                       <Input
+                                        type="date"
+                                        className="form-control"
+                                        name="dob"
+                                        value={this.state.dob}
+                                        onChange={this.onChangeDob}
+                                        validations={[required, vdob]}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="address">Address</label>
+                                    <Input
+                                        type="text"
+                                        className="form-control"
+                                        name="address"
+                                        value={this.state.address}
+                                        onChange={this.onChangeAddress}
+                                        validations={[required, vaddress]}
                                     />
                                 </div>
 
