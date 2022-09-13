@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import {Link, Route, Switch} from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import logo from "./images/logo_1_white_png.png";
 
 import AuthService from "./services/auth.service";
 
@@ -13,6 +15,12 @@ import BoardUser from "./components/board-user.component";
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
+
+const headerStyle = {
+    maxHeight: "80px",
+    background: "#FF9431",
+    color: "white",
+}
 
 class App extends Component {
     constructor(props) {
@@ -60,9 +68,9 @@ class App extends Component {
 
         return (
             <div>
-                <nav className="navbar navbar-expand navbar-dark bg-dark">
+                <nav className="navbar navbar-expand" style={headerStyle}>
                     <Link to={"/"} className="navbar-brand">
-                        S N H
+                        <img src={logo} style={{height:"70px", width:"70px"}}/>
                     </Link>
                     <div className="navbar-nav mr-auto">
                         <li className="nav-item">
@@ -73,7 +81,7 @@ class App extends Component {
 
 
                         {currentUser && (
-                            <li className="nav-item">
+                            <li className="nav-item" >
                                 <Link to={"/user"} className="nav-link">
                                     User
                                 </Link>
@@ -97,13 +105,18 @@ class App extends Component {
                     ) : (
                         <div className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <Link to={"/login"} className="nav-link">
+                                <Link to={"/login"} className="nav-link" style={{borderRight:"3px solid white",paddingRight:"20px"}}>
                                     Login
                                 </Link>
                             </li>
 
                             <li className="nav-item">
-                                <Link to={"/register"} className="nav-link">
+                                <div className="nav-link">
+                                </div>
+                            </li>
+
+                            <li className="nav-item">
+                                <Link to={"/register"} className="nav-link" style={{color:"black",background:"white",border:"1px",borderRadius:"10px"}}>
                                     Sign Up
                                 </Link>
                             </li>
@@ -111,7 +124,7 @@ class App extends Component {
                     )}
                 </nav>
 
-                <div className="container mt-3">
+                <div>
                     <Switch>
                         <Route exact path={["/", "/home"]} component={Home}/>
                         <Route exact path="/login" component={Login}/>

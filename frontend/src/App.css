@@ -1,5 +1,5 @@
 label {
-    display: block;
+    display: flex;
     margin-top: 10px;
 }
 
@@ -30,3 +30,22 @@ label {
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
+
+a {text-decoration: none; }
+
+.navbar a {
+    color: white;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.home-section {
+    background-image: url(./images/stock-image_2.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
