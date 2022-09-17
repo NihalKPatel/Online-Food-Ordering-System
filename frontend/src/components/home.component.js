@@ -41,7 +41,7 @@ x
                         <div style={{paddingTop:"50px"}}>
                         <form>
                             <AiOutlineSearch style={{fontSize:"50px", marginTop:"15px", marginLeft:"10px", transform:"scale(-1, 1)"}}/>
-                            <input className="searchbar" type="search" placeholder="Search.."/>
+                            <input className="searchbar" type="search" placeholder="Search..."/>
                             <button type="submit">Search</button>
                         </form>
                             </div>

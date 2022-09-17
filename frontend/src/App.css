@@ -83,3 +83,9 @@ form button {
     margin: 10px;
     font-size: 30px;
 }
+.back-image{
+    background-image: url(./images/stock-image_2.jpg)
+}
+.black{
+    color: black;
+}
