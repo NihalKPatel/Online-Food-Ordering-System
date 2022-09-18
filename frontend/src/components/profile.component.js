@@ -28,7 +28,8 @@ export default class Profile extends Component {
         const {currentUser} = this.state;
 
         return (
-            <div className="container">
+            <div className="profile-section">
+            <div className="container" style={{width:"45%",backgroundColor: "white"}}>
                 {(this.state.userReady) ?
                     <div>
                         <h2>Profile</h2>
@@ -55,6 +56,7 @@ export default class Profile extends Component {
                                 currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
                         </ul>
                     </div> : null}
+            </div>
             </div>
         );
     }

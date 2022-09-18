@@ -37,16 +37,19 @@ a {text-decoration: none; }
     color: white;
 }
 
+.navbar{
+    position: fixed;
+}
+
 .navbar a:hover {
     text-decoration: underline;
 }
 
 .home-section {
     background-image: url(./images/stock-image_2.jpg);
-    background-position: center center;
+    background-position: center ;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 90vh;
 }
 
 form {
@@ -55,7 +58,6 @@ form {
     background: white;
     padding:2px;
     border-radius: 60px;
-
 }
 
 input {
@@ -82,4 +84,36 @@ form button {
     padding-left: 20px;
     margin: 10px;
     font-size: 30px;
+}
+
+.sticky {
+    background-color: rgba(4, 9, 22, 0.42);
+    transition: all 0.3s ease-out 0s;
+    backdrop-filter: blur(15px);
+
+}
+
+.profile-section {
+    background-image: url(./images/stock-image_2.jpg);
+    background-position: center ;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* clears the ‘X’ from Internet Explorer /
+input[type=search]::-ms-clear { display: none; width : 0; height: 0; }
+input[type=search]::-ms-reveal { display: none; width : 0; height: 0; }
+
+/ clears the ‘X’ from Chrome */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }
+
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
 }

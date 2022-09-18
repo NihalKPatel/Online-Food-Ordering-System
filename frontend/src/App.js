@@ -17,7 +17,6 @@ import BoardUser from "./components/board-user.component";
 import EventBus from "./common/EventBus";
 
 const headerStyle = {
-    maxHeight: "80px",
     background: "#FF9431",
     color: "white",
 }
@@ -70,7 +69,7 @@ class App extends Component {
             <div>
                 <nav className="navbar navbar-expand" style={headerStyle}>
                     <Link to={"/"} className="navbar-brand">
-                        <img src={logo} style={{height:"70px", width:"70px"}}/>
+                        <img src={logo} style={{height:"70px", width:"70px"}} alt={""}/>
                     </Link>
                     <div className="navbar-nav mr-auto">
                         <li className="nav-item">
@@ -92,7 +91,7 @@ class App extends Component {
                     {currentUser ? (
                         <div className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <Link to={"/profile"} className="nav-link">
+                                <Link to={"/profile"} className="nav-link" style={{borderRight:"3px solid white",paddingRight:"20px"}}>
                                     {currentUser.username}
                                 </Link>
                             </li>
