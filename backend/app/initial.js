@@ -15,7 +15,6 @@ module.exports = function (initial) {
             firstname: "Nihal",
             lastname: "Patel",
             address: "1234 Main St",
-            username: "nihal",
             email: "nihal@gmail.com",
             dob: '2020-12-12',
             password: "nihal123"
@@ -25,7 +24,6 @@ module.exports = function (initial) {
             firstname: "Hamesh",
             lastname: "Patel",
             address: "1234 Main St",
-            username: "hamesh",
             email: "hamesh@gmail.com",
             dob: '2020-12-12',
             password: "hamesh123"
@@ -35,7 +33,6 @@ module.exports = function (initial) {
             firstname: "Suwesh",
             lastname: "Ranjitkar",
             address: "1234 Main St",
-            username: "suwesh",
             email: "suwesh@gmail.com",
             dob: '2020-12-12',
             password: "suwesh123"

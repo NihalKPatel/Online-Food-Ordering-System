@@ -34,16 +34,6 @@ const email = value => {
     }
 };
 
-const vusername = value => {
-    if (value.length < 3 || value.length > 20) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                The username must be between 3 and 20 characters.
-            </div>
-        );
-    }
-};
-
 const vfirstname = value => {
     if (value.length < 3 || value.length > 20) {
         return (
@@ -98,7 +88,6 @@ export default class Register extends Component {
     constructor(props) {
         super(props);
         this.handleRegister = this.handleRegister.bind(this);
-        this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangeFirstname = this.onChangeFirstname.bind(this);
         this.onChangeLastname = this.onChangeLastname.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -108,7 +97,6 @@ export default class Register extends Component {
 
 
         this.state = {
-            username: "",
             email: "",
             password: "",
             firstname: "",
@@ -118,12 +106,6 @@ export default class Register extends Component {
             successful: false,
             message: ""
         };
-    }
-
-    onChangeUsername(e) {
-        this.setState({
-            username: e.target.value
-        });
     }
 
     onChangeEmail(e) {
@@ -174,7 +156,6 @@ export default class Register extends Component {
 
         if (this.checkBtn.context._errors.length === 0) {
             AuthService.register(
-                this.state.username,
                 this.state.email,
                 this.state.password,
                 this.state.firstname,
@@ -212,31 +193,19 @@ export default class Register extends Component {
                 <br></br>
                 <br></br>
                 <div className="container " style={{width: "50%"}}>
-                    
 
-                    <Form 
+
+                    <Form
                         onSubmit={this.handleRegister}
                         ref={c => {
                             this.form = c;
                         }}
                     >
                         {!this.state.successful && (
-                            
+
                             <div className="col-lg-6 offset-lg-3">
                                 <h2>Create an account</h2>
 
-                                <div className="form-group">
-                                    <label htmlFor="username">Username</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control form-rounded"
-                                        name="username"
-                                        placeholder="E.g Srs0430"
-                                        value={this.state.username}
-                                        onChange={this.onChangeUsername}
-                                        validations={[required, vusername]}
-                                    />
-                                </div>
 
                                 <div className="form-group">
                                     <label htmlFor="email">Email</label>
@@ -299,7 +268,7 @@ export default class Register extends Component {
                                         type="date"
                                         className="form-control form-rounded"
                                         name="dob"
-                                        
+
                                         value={this.state.dob}
                                         onChange={this.onChangeDob}
                                         validations={[required, vdob]}
@@ -324,9 +293,9 @@ export default class Register extends Component {
                                 <hr></hr>
 
                                 <div className="form-group"  >
-                                    
+
                                  <>
-                                <ButtonToolbar 
+                                <ButtonToolbar
                                     className="justify-content-between "
                                     aria-label="Toolbar with Button groups"
                                 >
@@ -337,9 +306,9 @@ export default class Register extends Component {
                                 </ButtonToolbar>
                                 </>
                                 </div>
-                                    
 
-                                
+
+
                             </div>
                         )}
 

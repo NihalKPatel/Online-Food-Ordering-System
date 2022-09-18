@@ -15,7 +15,6 @@ exports.signup = (req, res) => {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         address: req.body.address,
-        username: req.body.username,
         email: req.body.email,
         dob: req.body.dob,
         password: bcrypt.hashSync(req.body.password, 8)
@@ -57,7 +56,7 @@ exports.getrestaurant = (req, res) => {
 exports.signin = (req, res) => {
     User.findOne({
         where: {
-            username: req.body.username
+            email: req.body.email,
         }
     })
         .then(user => {
@@ -88,7 +87,6 @@ exports.signin = (req, res) => {
                 }
                 res.status(200).send({
                     id: user.id,
-                    username: user.username,
                     email: user.email,
                     firstname: user.firstname,
                     lastname: user.lastname,
