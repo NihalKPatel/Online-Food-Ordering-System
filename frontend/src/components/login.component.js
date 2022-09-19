@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import "./login.css"
 
 import AuthService from "../services/auth.service";
 
@@ -81,13 +82,12 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div className="col-md-12">
-                <div className="card card-container">
-                    <img
-                        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                        alt="profile-img"
-                        className="profile-img-card"
-                    />
+            
+            <div className="col-md-12 login-section">
+                <br></br>
+                <br></br>
+                <div className="container">
+                
 
                     <Form
                         onSubmit={this.handleLogin}
@@ -95,6 +95,8 @@ export default class Login extends Component {
                             this.form = c;
                         }}
                     >
+                        <div className="col-lg-6 offset-lg-3">
+                            <h1 style ={{textAlign:"center"}}>Log in</h1>
                         <div className="form-group">
                             <label htmlFor="username">Username</label>
                             <Input
@@ -119,16 +121,32 @@ export default class Login extends Component {
                             />
                         </div>
 
-                        <div className="form-group">
-                            <button
-                                className="btn btn-primary btn-block"
-                                disabled={this.state.loading}
+                        
+                        <div> 
+                        <div > 
+                                <input type="checkbox" id="check" name="check" value="Remember me" style={{height:"10px", width:"10px"}}/>
+                                <label for="check">Remember me</label>
+                                </div>
+                                <a href="#" style={{float: "right"}}><u>Forgotten your password</u></a></div>
+
+                        <div style ={{textAlign:"center"}}>
+                        <a href="http://localhost:8081/register"><u>Already have an account</u></a>
+                        </div>
+
+                                <hr></hr>
+
+
+                        <div className="form-group" style ={{textAlign:"center"}}>
+                            <button 
+                                // className="btn btn-primary btn-block"
+                                disabled={this.state.loading} 
                             >
                                 {this.state.loading && (
                                     <span className="spinner-border spinner-border-sm"/>
                                 )}
                                 <span>Login</span>
                             </button>
+                        </div>
                         </div>
 
                         {this.state.message && (

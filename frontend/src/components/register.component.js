@@ -3,6 +3,17 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import {isEmail} from "validator";
+import './register.css'
+import {Row} from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
+
+import InputGroup from 'react-bootstrap/InputGroup';
+
+import {useNavigate} from 'react-router-dom';
+
 
 import AuthService from "../services/auth.service";
 
@@ -199,29 +210,61 @@ export default class Register extends Component {
     }
 
     render() {
+        // const navigate = useNavigate();
         return (
-            <div className="col-md-12">
-                <div className="card card-container">
-                    <img
-                        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                        alt="profile-img"
-                        className="profile-img-card"
-                    />
+            <div className="col-md-12 register-section">
+                <br></br>
+                <br></br>
+                <div className="container" style={{width: "50%"}}>
+                    
 
-                    <Form
+                    <Form 
                         onSubmit={this.handleRegister}
                         ref={c => {
                             this.form = c;
                         }}
                     >
                         {!this.state.successful && (
-                            <div>
+                            
+                            <div className="col-lg-6 offset-lg-3">
+                                <h2>Create an account</h2>
+                                
+                                <div className="form-group input-group form-row side">
+
+                                <div className="col-xs-2">
+                                    <label htmlFor="firstname">First Name</label>
+                                    <Input
+                                        type="text"
+                                        className="form-control form-rounded"
+                                        name="firstname"
+                                        placeholder="E.g Smith"
+                                        value={this.state.firstname}
+                                        onChange={this.onChangeFirstname}
+                                        validations={[required, vfirstname]}
+                                    />
+                                </div>
+
+                                <div className="col-xs-2">
+                                    <label htmlFor="lastname">Last Name</label>
+                                    <Input
+                                        type="text"
+                                        className="form-control form-rounded"
+                                        name="lastname"
+                                        placeholder="E.g John"
+                                        value={this.state.lastname}
+                                        onChange={this.onChangeLastname}
+                                        validations={[required, vlastname]}
+                                    />
+                                </div>
+                                </div>
+
                                 <div className="form-group">
                                     <label htmlFor="username">Username</label>
                                     <Input
                                         type="text"
-                                        className="form-control"
+                                        className="form-control form-rounded"
                                         name="username"
+                                        placeholder="E.g Srs0430"
                                         value={this.state.username}
                                         onChange={this.onChangeUsername}
                                         validations={[required, vusername]}
@@ -232,8 +275,9 @@ export default class Register extends Component {
                                     <label htmlFor="email">Email</label>
                                     <Input
                                         type="text"
-                                        className="form-control"
+                                        className="form-control form-rounded"
                                         name="email"
+                                        placeholder="E.g example@gmail.com"
                                         value={this.state.email}
                                         onChange={this.onChangeEmail}
                                         validations={[required, email]}
@@ -244,44 +288,24 @@ export default class Register extends Component {
                                     <label htmlFor="password">Password</label>
                                     <Input
                                         type="password"
-                                        className="form-control"
+                                        className="form-control form-rounded"
                                         name="password"
+                                        placeholder="Must have 8 or more charcters"
                                         value={this.state.password}
                                         onChange={this.onChangePassword}
                                         validations={[required, vpassword]}
                                     />
                                 </div>
 
-                                <div className="form-group">
-                                    <label htmlFor="firstname">First Name</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="firstname"
-                                        value={this.state.firstname}
-                                        onChange={this.onChangeFirstname}
-                                        validations={[required, vfirstname]}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="lastname">Last Name</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="lastname"
-                                        value={this.state.lastname}
-                                        onChange={this.onChangeLastname}
-                                        validations={[required, vlastname]}
-                                    />
-                                </div>
+                                
 
                                 <div className="form-group">
                                     <label htmlFor="dob">Date of Birth</label>
                                        <Input
                                         type="date"
-                                        className="form-control"
+                                        className="form-control form-rounded"
                                         name="dob"
+                                        
                                         value={this.state.dob}
                                         onChange={this.onChangeDob}
                                         validations={[required, vdob]}
@@ -292,17 +316,37 @@ export default class Register extends Component {
                                     <label htmlFor="address">Address</label>
                                     <Input
                                         type="text"
-                                        className="form-control"
+                                        className="form-control form-rounded"
                                         name="address"
+                                        placeholder="Enter your Address here"
                                         value={this.state.address}
                                         onChange={this.onChangeAddress}
                                         validations={[required, vaddress]}
                                     />
                                 </div>
+                                
+                                <br></br>
+                                <a href="http://localhost:8081/login"><u>Already have an account</u></a>
 
-                                <div className="form-group">
-                                    <button className="btn btn-primary btn-block">Sign Up</button>
+                                <hr></hr>
+
+                                <div className="form-group"  >
+                                    {/* onClick={() => navigate(-1)} */}
+                                 <>
+                                <ButtonToolbar 
+                                    className="justify-content-between "
+                                    aria-label="Toolbar with Button groups"
+                                >
+                                    <ButtonGroup aria-label="First group">
+                                    <button variant="secondary" className=" btn btn-light button-1" onClick="http://localhost:8081/home">&lt;Back</button>{' '}
+                                    </ButtonGroup>
+                                        <button variant="secondary" className="btn orange button-2" >Create Account</button>
+                                </ButtonToolbar>
+                                </>
                                 </div>
+                                    
+
+                                
                             </div>
                         )}
 
@@ -328,6 +372,9 @@ export default class Register extends Component {
                         />
                     </Form>
                 </div>
+                <br></br>
+                <br></br>
+                <br></br>
             </div>
         );
     }
