@@ -132,22 +132,9 @@ class App extends Component {
                         <Route path="/user" component={BoardUser}/>
                     </Switch>
                 </div>
-
                 { /*<AuthVerify logOut={this.logOut}/> */}
-                        
-                
-
-
-
-
-                <footer class="bg-light text-center text-white black">
-                <div class="text-center p-3">
-                    © 2020 Copyright:
-                    <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-                </div>
-                </footer>
             </div>
-            
+
         );
     }
 }

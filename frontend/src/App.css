@@ -45,19 +45,13 @@ a {text-decoration: none; }
     text-decoration: underline;
 }
 
-.home-section {
-    background-image: url(./images/stock-image_2.jpg);
-    background-position: center ;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 
 form {
     display:flex;
     flex-direction:row;
     background: white;
     padding:2px;
-    border-radius: 60px;
+    border-radius: 30px;
 }
 
 input {
@@ -69,6 +63,7 @@ input {
     height: 80px;
     border-radius: 60px;
 }
+
 
 input:focus {
     outline: none;
@@ -92,14 +87,38 @@ form button {
     backdrop-filter: blur(15px);
 
 }
-
-.profile-section {
+.home-section {
     background-image: url(./images/stock-image_2.jpg);
     background-position: center ;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+.profile-section {
+    background-image: url(./images/stock-image_2.jpg);
+    background-position: center ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.signup-section {
+    background-image: url(./images/stock-image_3.jpg);
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+
+}
+
+.signin-section {
+    background-image: url(./images/stock-image_1.jpg);
+    background-position: center ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+
+}
 /* clears the ‘X’ from Internet Explorer /
 input[type=search]::-ms-clear { display: none; width : 0; height: 0; }
 input[type=search]::-ms-reveal { display: none; width : 0; height: 0; }
@@ -116,4 +135,12 @@ img {
     margin-left: auto;
     margin-right: auto;
 
+}
+
+dialog {
+    display: block;
+}
+
+dialog:not(:target):not([open]) {
+    display: none;
 }

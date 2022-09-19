@@ -5,6 +5,7 @@ import logo from "../images/logo_name_white.png";
 import {AiOutlineSearch} from "react-icons/ai";
 import {Card, Row} from "react-bootstrap";
 
+
 export default class Home extends Component {
     constructor(props) {
         super(props);

@@ -2,22 +2,25 @@ import React, {Component} from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import {isEmail} from "validator";
-import './register.css'
-import {Row} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-
-import InputGroup from 'react-bootstrap/InputGroup';
-
 import AuthService from "../services/auth.service";
+import {Col} from "react-bootstrap";
+import {Autocomplete} from '@react-google-maps/api';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
+const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
+const validPassword = new RegExp('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$');
+const validFirstname = new RegExp('^[a-z]{1,10}$');
+const validLastname = new RegExp('^[a-z\']{2,10}$');
+const validDob = new RegExp('^[a-z]{1,10}$');
 
 const required = value => {
     if (!value) {
         return (
-            <div className="alert alert-danger" role="alert">
+            <div style={{color: "red"}} role="alert">
                 This field is required!
             </div>
         );
@@ -25,9 +28,9 @@ const required = value => {
 };
 
 const email = value => {
-    if (!isEmail(value)) {
+    if (!validEmail.test(value)) {
         return (
-            <div className="alert alert-danger" role="alert">
+            <div style={{color: "red"}} role="alert">
                 This is not a valid email.
             </div>
         );
@@ -35,9 +38,9 @@ const email = value => {
 };
 
 const vfirstname = value => {
-    if (value.length < 3 || value.length > 20) {
+    if (validFirstname.test(value)) {
         return (
-            <div className="alert alert-danger" role="alert">
+            <div style={{color: "red"}} role="alert">
                 The first name must be between 3 and 20 characters.
             </div>
         );
@@ -45,9 +48,9 @@ const vfirstname = value => {
 }
 
 const vlastname = value => {
-    if (value.length < 3 || value.length > 20) {
+    if (validLastname.test(value)) {
         return (
-            <div className="alert alert-danger" role="alert">
+            <div style={{color: "red"}} role="alert">
                 The last name must be between 3 and 20 characters.
             </div>
         );
@@ -55,9 +58,9 @@ const vlastname = value => {
 }
 
 const vaddress = value => {
-    if (value.length < 1) {
+    if (!(value)) {
         return (
-            <div className="alert alert-danger" role="alert">
+            <div style={{color: "red"}} role="alert">
                 The address must be a valid address.
             </div>
         );
@@ -65,9 +68,9 @@ const vaddress = value => {
 }
 
 const vdob = value => {
-    if (value.length < 1) {
+    if (validDob.test(value)) {
         return (
-            <div className="alert alert-danger" role="alert">
+            <div style={{color: "red"}} role="alert">
                 The date of birth must be a valid date.
             </div>
         );
@@ -75,16 +78,18 @@ const vdob = value => {
 }
 
 const vpassword = value => {
-    if (value.length < 6 || value.length > 40) {
+    if (!validPassword.test(value)) {
         return (
-            <div className="alert alert-danger" role="alert">
-                The password must be between 6 and 40 characters.
+            <div style={{color: "red"}} role="alert">
+                Minimum 8 characters, at least one letter and one number
             </div>
         );
     }
 };
 
+
 export default class Register extends Component {
+
     constructor(props) {
         super(props);
         this.handleRegister = this.handleRegister.bind(this);
@@ -94,8 +99,6 @@ export default class Register extends Component {
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onChangeAddress = this.onChangeAddress.bind(this);
         this.onChangeDob = this.onChangeDob.bind(this);
-
-
         this.state = {
             email: "",
             password: "",
@@ -106,6 +109,30 @@ export default class Register extends Component {
             successful: false,
             message: ""
         };
+
+
+        this.autocomplete = null
+
+        this.onLoad = this.onLoad.bind(this)
+        this.onPlaceChanged = this.onPlaceChanged.bind(this)
+    }
+
+    onLoad(autocomplete) {
+        console.log('autocomplete: ', autocomplete)
+
+
+        this.autocomplete = autocomplete
+    }
+
+    onPlaceChanged() {
+        if (this.autocomplete !== null) {
+            console.log(this.autocomplete.getPlace())
+            this.setState({
+                address: this.autocomplete.getPlace().formatted_address
+            });
+        } else {
+            console.log('Autocomplete is not loaded yet!')
+        }
     }
 
     onChangeEmail(e) {
@@ -189,25 +216,53 @@ export default class Register extends Component {
 
     render() {
         return (
-            <div className="col-md-12 ">
+            <div className="col-md-12 signup-section">
                 <br></br>
                 <br></br>
                 <div className="container " style={{width: "50%"}}>
-
-
                     <Form
                         onSubmit={this.handleRegister}
                         ref={c => {
                             this.form = c;
                         }}
+                        style={{borderRadius: "20px"}}
                     >
                         {!this.state.successful && (
-
-                            <div className="col-lg-6 offset-lg-3">
-                                <h2>Create an account</h2>
-
-
+                            <div style={{width: "75%", display: "block", margin: "auto",}}>
+                                <br></br>
+                                <h2 style={{textAlign: 'center'}}>Create an account</h2>
                                 <div className="form-group">
+                                    <div className="input-group form-row side">
+                                        <Col>
+                                            <div className="form-group">
+                                                <label htmlFor="firstname">First Name</label>
+                                                <Input
+                                                    type="text"
+                                                    className="form-control form-rounded"
+                                                    name="firstname"
+                                                    placeholder="E.g John"
+                                                    value={this.state.firstname}
+                                                    onChange={this.onChangeFirstname}
+                                                    validations={[required, vfirstname]}
+                                                />
+                                            </div>
+                                        </Col>
+                                        <Col>
+                                            <div className="form-group" style={{}}>
+                                                <label htmlFor="lastname">Last Name</label>
+                                                <Input
+                                                    type="text"
+                                                    className="form-control form-rounded"
+                                                    name="lastname"
+                                                    placeholder="E.g Smith"
+                                                    value={this.state.lastname}
+                                                    onChange={this.onChangeLastname}
+                                                    validations={[required, vlastname]}
+                                                />
+                                            </div>
+                                        </Col>
+                                    </div>
+
                                     <label htmlFor="email">Email</label>
                                     <Input
                                         type="text"
@@ -220,51 +275,10 @@ export default class Register extends Component {
                                     />
                                 </div>
 
-                                <div className="form-group">
-                                    <label htmlFor="password">Password</label>
-                                    <Input
-                                        type="password"
-                                        className="form-control form-rounded"
-                                        name="password"
-                                        placeholder="Must have 8 or more charcters"
-                                        value={this.state.password}
-                                        onChange={this.onChangePassword}
-                                        validations={[required, vpassword]}
-                                    />
-                                </div>
-
-                                <div className="input-group form-row side">
-
-                                <div className="form-group">
-                                    <label htmlFor="firstname">First Name</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control form-rounded"
-                                        name="firstname"
-                                        placeholder="E.g Smith"
-                                        value={this.state.firstname}
-                                        onChange={this.onChangeFirstname}
-                                        validations={[required, vfirstname]}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="lastname">Last Name</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control form-rounded"
-                                        name="lastname"
-                                        placeholder="E.g John"
-                                        value={this.state.lastname}
-                                        onChange={this.onChangeLastname}
-                                        validations={[required, vlastname]}
-                                    />
-                                </div>
-                                </div>
 
                                 <div className="form-group">
                                     <label htmlFor="dob">Date of Birth</label>
-                                       <Input
+                                    <Input
                                         type="date"
                                         className="form-control form-rounded"
                                         name="dob"
@@ -277,52 +291,89 @@ export default class Register extends Component {
 
                                 <div className="form-group">
                                     <label htmlFor="address">Address</label>
+                                    <Autocomplete
+                                        onLoad={this.onLoad}
+                                        onPlaceChanged={this.onPlaceChanged}
+                                    >
+                                        <input
+                                            type="text"
+                                            className="form-control form-rounded"
+                                            name="address"
+                                            placeholder="Enter your Address here"
+                                            value={this.state.address}
+                                            onChange={this.onChangeAddress}
+                                            validations={[required, vaddress]}
+                                        />
+                                    </Autocomplete>
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="password">Password</label>
                                     <Input
-                                        type="text"
+                                        type="password"
                                         className="form-control form-rounded"
-                                        name="address"
-                                        placeholder="Enter your Address here"
-                                        value={this.state.address}
-                                        onChange={this.onChangeAddress}
-                                        validations={[required, vaddress]}
+                                        name="password"
+                                        placeholder="Minimum 8 characters, at least one letter and one number"
+                                        value={this.state.password}
+                                        onChange={this.onChangePassword}
+                                        validations={[required, vpassword]}
                                     />
                                 </div>
-                                <br></br>
-                                <a><u>Already have an account</u></a>
 
-                                <hr></hr>
-
-                                <div className="form-group"  >
-
-                                 <>
-                                <ButtonToolbar
-                                    className="justify-content-between "
-                                    aria-label="Toolbar with Button groups"
-                                >
-                                    <ButtonGroup aria-label="First group">
-                                    <button variant="secondary" className=" btn btn-light button-1">&lt;Back</button>{' '}
-                                    </ButtonGroup>
-                                        <button variant="secondary" className="btn orange button-2" >Create Account</button>
-                                </ButtonToolbar>
-                                </>
+                                <div className="form-group">
+                                    <label htmlFor="password">Confirm Password</label>
+                                    <Input
+                                        type="password"
+                                        className="form-control form-rounded"
+                                        name="password"
+                                        placeholder="Minimum 8 characters, at least one letter and one number"
+                                        value={this.state.password}
+                                        onChange={this.onChangePassword}
+                                        validations={[required, vpassword]}
+                                    />
                                 </div>
 
 
+                                <a href={"/login"}
+                                   style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                    Already have an account
+                                </a>
 
-                            </div>
-                        )}
+                                <hr style={{border: "0.5px black solid", width: "90%"}}/>
 
-                        {this.state.message && (
-                            <div className="form-group">
-                                <div
-                                    className={
-                                        this.state.successful
-                                            ? "alert alert-success"
-                                            : "alert alert-danger"
-                                    }
-                                    role="alert"
-                                >
-                                    {this.state.message}
+                                <div className="form-group">
+
+                                    <>
+                                        <ButtonToolbar
+                                            className="justify-content-between "
+                                            aria-label="Toolbar with Button groups"
+                                        >
+                                            <ButtonGroup aria-label="First group">
+                                                <button variant="secondary" herf="/" className=" btn"
+                                                        style={{border: "1px black solid"}}>&lt;Back
+                                                </button>
+                                                {' '}
+                                            </ButtonGroup>
+                                            <Popup trigger={
+                                            <button
+                                                    className="btn"
+                                                    style={{backgroundColor: "#FF9431"}}>Create Account
+                                            </button>} modal>
+                                                    {this.state.message && (
+                                                    <div className="form-group">
+                                                        <div
+                                                            className={this.state.successful ? "alert alert-success" : "alert alert-danger"}
+                                                            role="alert"
+                                                        >
+                                                            {this.state.message}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </Popup>
+
+                                        </ButtonToolbar>
+                                    </>
+
                                 </div>
                             </div>
                         )}
@@ -333,10 +384,9 @@ export default class Register extends Component {
                             }}
                         />
                     </Form>
+
+
                 </div>
-                <br></br>
-                <br></br>
-                <br></br>
             </div>
         );
     }
