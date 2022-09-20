@@ -53,6 +53,26 @@ exports.getrestaurant = (req, res) => {
     });
 }
 
+exports.profileupdate = (req, res) => {
+    const id = req.params.id;
+    User.update(
+        {
+            address: req.body.address,
+            email: req.body.email,
+            password: bcrypt.hashSync(req.body.password, 8)
+        },
+        {
+            where: {
+                id: id
+            }
+        }
+    ).then(user => {
+        res.send({message: "User updated successfully!"});
+    }).catch(err => {
+        res.status(500).send({message: err.message});
+    });
+}
+
 exports.signin = (req, res) => {
     User.findOne({
         where: {

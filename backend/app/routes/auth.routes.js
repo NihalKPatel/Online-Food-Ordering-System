@@ -16,6 +16,7 @@ module.exports = function (app) {
     );
 
     router.post("/signin", controller.signin);
+    router.put("/update/:id", controller.profileupdate);
     app.use('/api/auth', router);
 
 };
