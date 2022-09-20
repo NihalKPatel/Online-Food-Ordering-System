@@ -86,7 +86,16 @@ const vpassword = value => {
         );
     }
 };
-
+const vconfirmpassword = (value, props, components) => {
+    const password = components.password[0].value;
+    if (value !== password) {
+        return (
+            <div style={{color: "red"}} role="alert">
+                The passwords do not match
+            </div>
+        );
+    }
+}
 
 export default class Register extends Component {
 
@@ -97,6 +106,7 @@ export default class Register extends Component {
         this.onChangeLastname = this.onChangeLastname.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
+        this.onChangeConfirmPassword = this.onChangeConfirmPassword.bind(this);
         this.onChangeAddress = this.onChangeAddress.bind(this);
         this.onChangeDob = this.onChangeDob.bind(this);
         this.state = {
@@ -110,17 +120,13 @@ export default class Register extends Component {
             message: ""
         };
 
-
         this.autocomplete = null
-
         this.onLoad = this.onLoad.bind(this)
         this.onPlaceChanged = this.onPlaceChanged.bind(this)
     }
 
     onLoad(autocomplete) {
         console.log('autocomplete: ', autocomplete)
-
-
         this.autocomplete = autocomplete
     }
 
@@ -144,6 +150,12 @@ export default class Register extends Component {
     onChangePassword(e) {
         this.setState({
             password: e.target.value
+        });
+    }
+
+    onChangeConfirmPassword(e) {
+        this.setState({
+            confirmpassword: e.target.value
         });
     }
 
@@ -217,8 +229,8 @@ export default class Register extends Component {
     render() {
         return (
             <div className="col-md-12 signup-section">
-                <br></br>
-                <br></br>
+                <br/>
+                <br/>
                 <div className="container " style={{width: "50%"}}>
                     <Form
                         onSubmit={this.handleRegister}
@@ -229,7 +241,7 @@ export default class Register extends Component {
                     >
                         {!this.state.successful && (
                             <div style={{width: "75%", display: "block", margin: "auto",}}>
-                                <br></br>
+                                <br/>
                                 <h2 style={{textAlign: 'center'}}>Create an account</h2>
                                 <div className="form-group">
                                     <div className="input-group form-row side">
@@ -327,9 +339,9 @@ export default class Register extends Component {
                                         className="form-control form-rounded"
                                         name="password"
                                         placeholder="Minimum 8 characters, at least one letter and one number"
-                                        value={this.state.password}
-                                        onChange={this.onChangePassword}
-                                        validations={[required, vpassword]}
+                                        value={this.state.confirmpassword}
+                                        onChange={this.onChangeConfirmPassword}
+                                        validations={[required, vconfirmpassword]}
                                     />
                                 </div>
 
@@ -342,7 +354,6 @@ export default class Register extends Component {
                                 <hr style={{border: "0.5px black solid", width: "90%"}}/>
 
                                 <div className="form-group">
-
                                     <>
                                         <ButtonToolbar
                                             className="justify-content-between "
