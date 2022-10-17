@@ -37,10 +37,6 @@ a {text-decoration: none; }
     color: white;
 }
 
-.navbar{
-    position: fixed;
-}
-
 .navbar a:hover {
     text-decoration: underline;
 }
@@ -50,8 +46,8 @@ form {
     display:flex;
     flex-direction:row;
     background: white;
-    padding:2px;
     border-radius: 30px;
+    line-height: 50%;
 }
 
 input {
@@ -85,13 +81,14 @@ form button {
     background-color: rgba(4, 9, 22, 0.42);
     transition: all 0.3s ease-out 0s;
     backdrop-filter: blur(15px);
-
 }
+
 .home-section {
     background-image: url(./images/stock-image_2.jpg);
     background-position: center ;
     background-repeat: no-repeat;
     background-size: cover;
+    height: 85vh;
 }
 
 .profile-section {
@@ -108,16 +105,14 @@ form button {
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
-
 }
 
 .signin-section {
     background-image: url(./images/stock-image_1.jpg);
-    background-position: center ;
+    background-position: left center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
-
 }
 /* clears the ‘X’ from Internet Explorer /
 input[type=search]::-ms-clear { display: none; width : 0; height: 0; }
@@ -143,4 +138,13 @@ dialog {
 
 dialog:not(:target):not([open]) {
     display: none;
+}
+body {
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll;
+}
+
+body::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
 }

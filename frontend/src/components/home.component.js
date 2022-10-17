@@ -41,7 +41,7 @@ x
                         <img src={logo} style={{display:"block", marginLeft:"auto", marginRight: "auto", height:"106px", width:"309px"}} alt={""}/>
                         <p style={{textAlign:"center", color:"white", paddingTop:"60px", fontSize:"25px" }}>Find Local Restaurants</p>
                         <div style={{paddingTop:"0.5%"}}>
-                        <form>
+                        <form style={{borderRadius: "50px"}}>
                             <AiOutlineSearch style={{fontSize:"50px", marginTop:"15px", marginLeft:"10px", transform:"scale(-1, 1)"}}/>
                             <input className="searchbar" type="search" placeholder="Search..."/>
                             <button type="submit">Search</button>

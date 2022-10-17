@@ -19,6 +19,8 @@ import EventBus from "./common/EventBus";
 const headerStyle = {
     background: "#FF9431",
     color: "white",
+    position: "fixed",
+    width:"100%",
 }
 
 class App extends Component {
@@ -66,7 +68,7 @@ class App extends Component {
         const {currentUser} = this.state;
 
         return (
-            <div className="back-image">
+            <div>
                 <nav className="navbar navbar-expand" style={headerStyle}>
                     <Link to={"/"} className="navbar-brand">
                         <img src={logo} style={{height:"70px", width:"70px"}} alt={""}/>
@@ -133,6 +135,12 @@ class App extends Component {
                     </Switch>
                 </div>
                 { /*<AuthVerify logOut={this.logOut}/> */}
+
+                <footer style={{backgroundColor: "black", paddingTop:"0.5%",paddingBottom:"0.5%"}}>
+                    <div style={{color:"white", fontSize:"80%", textAlign: "center"}}>
+                        © Copyright 2022 Search Near Home.
+                    </div>
+                </footer>
             </div>
 
         );

@@ -11,33 +11,6 @@ module.exports = function (initial) {
             name: "user"
         });
 
-        User.create({
-            firstname: "Nihal",
-            lastname: "Patel",
-            address: "1234 Main St",
-            email: "nihal@gmail.com",
-            dob: '2020-12-12',
-            password: "nihal123"
-        })
-
-        User.create({
-            firstname: "Hamesh",
-            lastname: "Patel",
-            address: "1234 Main St",
-            email: "hamesh@gmail.com",
-            dob: '2020-12-12',
-            password: "hamesh123"
-        })
-
-        User.create({
-            firstname: "Suwesh",
-            lastname: "Ranjitkar",
-            address: "1234 Main St",
-            email: "suwesh@gmail.com",
-            dob: '2020-12-12',
-            password: "suwesh123"
-        })
-
         Restaurant.create({
             name: "McDonalds",
             address: "1234 Main St",

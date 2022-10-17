@@ -20,7 +20,7 @@ const validDob = new RegExp('^[a-z]{1,10}$');
 const required = value => {
     if (!value) {
         return (
-            <div style={{color: "red"}} role="alert">
+            <div style={{color: "red", paddingTop: "1%"}} role="alert">
                 This field is required!
             </div>
         );
@@ -228,10 +228,8 @@ export default class Register extends Component {
 
     render() {
         return (
-            <div className="col-md-12 signup-section">
-                <br/>
-                <br/>
-                <div className="container " style={{width: "50%"}}>
+            <div className="signup-section">
+                <div className="container" style={{width: "50%", fontSize: "70%", paddingTop: "9%"}}>
                     <Form
                         onSubmit={this.handleRegister}
                         ref={c => {
@@ -240,15 +238,15 @@ export default class Register extends Component {
                         style={{borderRadius: "20px"}}
                     >
                         {!this.state.successful && (
-                            <div style={{width: "75%", display: "block", margin: "auto",}}>
-                                <br/>
-                                <h2 style={{textAlign: 'center'}}>Create an account</h2>
+                            <div style={{width: "75%", display: "block", margin: "auto"}}>
+                                <h2 style={{textAlign: 'center', paddingTop: "5%"}}>Create an account</h2>
                                 <div className="form-group">
                                     <div className="input-group form-row side">
                                         <Col>
                                             <div className="form-group">
                                                 <label htmlFor="firstname">First Name</label>
                                                 <Input
+                                                    style={{height: "35px"}}
                                                     type="text"
                                                     className="form-control form-rounded"
                                                     name="firstname"
@@ -260,9 +258,10 @@ export default class Register extends Component {
                                             </div>
                                         </Col>
                                         <Col>
-                                            <div className="form-group" style={{}}>
+                                            <div className="form-group">
                                                 <label htmlFor="lastname">Last Name</label>
                                                 <Input
+                                                    style={{height: "35px"}}
                                                     type="text"
                                                     className="form-control form-rounded"
                                                     name="lastname"
@@ -277,6 +276,7 @@ export default class Register extends Component {
 
                                     <label htmlFor="email">Email</label>
                                     <Input
+                                        style={{height: "35px"}}
                                         type="text"
                                         className="form-control form-rounded"
                                         name="email"
@@ -291,10 +291,10 @@ export default class Register extends Component {
                                 <div className="form-group">
                                     <label htmlFor="dob">Date of Birth</label>
                                     <Input
+                                        style={{height: "35px", width: "50%"}}
                                         type="date"
                                         className="form-control form-rounded"
                                         name="dob"
-
                                         value={this.state.dob}
                                         onChange={this.onChangeDob}
                                         validations={[required, vdob]}
@@ -308,6 +308,7 @@ export default class Register extends Component {
                                         onPlaceChanged={this.onPlaceChanged}
                                     >
                                         <input
+                                            style={{height: "35px"}}
                                             type="text"
                                             className="form-control form-rounded"
                                             name="address"
@@ -318,10 +319,10 @@ export default class Register extends Component {
                                         />
                                     </Autocomplete>
                                 </div>
-
                                 <div className="form-group">
                                     <label htmlFor="password">Password</label>
                                     <Input
+                                        style={{height: "35px"}}
                                         type="password"
                                         className="form-control form-rounded"
                                         name="password"
@@ -335,20 +336,19 @@ export default class Register extends Component {
                                 <div className="form-group">
                                     <label htmlFor="password">Confirm Password</label>
                                     <Input
+                                        style={{height: "35px"}}
                                         type="password"
                                         className="form-control form-rounded"
                                         name="password"
-                                        placeholder="Minimum 8 characters, at least one letter and one number"
+                                        placeholder="Confirm your password"
                                         value={this.state.confirmpassword}
                                         onChange={this.onChangeConfirmPassword}
                                         validations={[required, vconfirmpassword]}
                                     />
                                 </div>
-
-
                                 <a href={"/login"}
                                    style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                                    Already have an account
+                                    Already have an account?
                                 </a>
 
                                 <hr style={{border: "0.5px black solid", width: "90%"}}/>
@@ -357,13 +357,13 @@ export default class Register extends Component {
                                     <>
                                         <ButtonToolbar
                                             className="justify-content-between "
-                                            aria-label="Toolbar with Button groups"
-                                        >
+                                            aria-label="Toolbar with Button groups" >
                                             <ButtonGroup aria-label="First group">
-                                                <button variant="secondary" herf="/" className=" btn"
-                                                        style={{border: "1px black solid"}}>&lt;Back
-                                                </button>
-                                                {' '}
+                                                <a href="/home">
+                                                    <button className=" btn"
+                                                            style={{border: "1px black solid"}}>&lt;Back
+                                                    </button>
+                                                </a>
                                             </ButtonGroup>
                                             <Popup trigger={
                                             <button

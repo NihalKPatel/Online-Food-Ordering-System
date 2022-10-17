@@ -122,3 +122,12 @@ exports.signin = (req, res) => {
             res.status(500).send({message: err.message});
         });
 };
+
+exports.delete = (req, res) => {
+    const id = req.params.id;
+    User.destroy({
+        where: {id: id}
+    }).then(() => {
+        res.status(200).send('deleted successfully a user with id = ' + id);
+    });
+}

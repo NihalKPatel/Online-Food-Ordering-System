@@ -17,6 +17,7 @@ module.exports = function (app) {
 
     router.post("/signin", controller.signin);
     router.put("/update/:id", controller.profileupdate);
+    router.delete("/delete/:id", controller.delete);
     app.use('/api/auth', router);
 
 };

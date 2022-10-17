@@ -87,10 +87,8 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div className="col-md-12 signin-section" style={{paddingTop:"10%",backdropFilter: "blur(100px)"}}>
-
+            <div className="signin-section" style={{paddingTop:"13%"}}>
                 <div className="container " style={{width: "40%"}}>
-
                     <Form
                         onSubmit={this.handleLogin}
                         ref={c => {

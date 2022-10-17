@@ -5,6 +5,7 @@
   "dependencies": {
     "@alduncanson/react-address-autocomplete": "^1.0.1",
     "@lob/react-address-autocomplete": "^2.2.0",
+    "@mui/material": "^5.10.6",
     "@react-google-maps/api": "^2.12.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
