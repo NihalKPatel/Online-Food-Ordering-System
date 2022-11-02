@@ -3,6 +3,9 @@ import {Redirect} from "react-router-dom";
 import AuthService from "../services/auth.service";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
+import {Autocomplete} from "@react-google-maps/api";
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 
 
 const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
@@ -38,7 +41,7 @@ const vaddress = value => {
     }
 }
 
-const email = value => {
+const vemail = value => {
     if (!validEmail.test(value)) {
         return (
             <div style={{color: "red"}} role="alert">
@@ -64,6 +67,7 @@ export default class Profile extends Component {
     constructor(props) {
         super(props);
         this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onChangeAddress = this.onChangeAddress.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -77,7 +81,9 @@ export default class Profile extends Component {
             password: "",
             address: "",
             loading: false,
-            message: ""
+            message: "",
+            editEmail: false,
+            editAddress: false,
         };
 
         this.autocomplete = null
@@ -126,22 +132,13 @@ export default class Profile extends Component {
         });
     }
 
-    handleUpdate(e) {
+    handleDelete(e) {
         e.preventDefault();
-
-        this.setState({
-            message: "",
-            loading: true
-        });
-
-        AuthService.update(
-            this.state.email,
-            this.state.password,
-            this.state.address
-        ).then(
+        AuthService.delete().then(
             () => {
-                this.props.history.push("/profile");
+                this.props.history.push("/login");
                 window.location.reload();
+                AuthService.logout();
             },
             error => {
                 const resMessage =
@@ -158,12 +155,69 @@ export default class Profile extends Component {
             }
         );
     }
-    handleLogout() {
-        AuthService.logout();
-    }
+
+    handleUpdate(e) {
+        e.preventDefault();
+
+        this.setState({
+            message: "",
+            loading: true
+        });
+        let email = this.state.email;
+        // eslint-disable-next-line
+        if (email == "") {
+            email = this.state.currentUser.email;
+        }
+
+        let address = this.state.address;
+        // eslint-disable-next-line
+        if (address == "") {
+            address = this.state.currentUser.address;
+        }
+
+        let password = this.state.password;
+        // eslint-disable-next-line
+        if (password == "") {
+            address = this.state.currentUser.password;
+        }
+
+        let confirmpassword = this.state.confirmpassword;
+        // eslint-disable-next-line
+        if (confirmpassword == "") {
+            address = this.state.currentUser.confirmpassword;
+        }
+
+        AuthService.update(
+            email,
+            this.state.password,
+            address
+        ).then(
+            () => {
+                this.props.history.push("/login");
+                window.location.reload();
+                AuthService.logout();
+            },
+            error => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+
+                this.setState({
+                    loading: false,
+                    message: resMessage
+                });
+            }
+        );
+
+        }
+
+
     componentDidMount() {
         const currentUser = AuthService.getCurrentUser();
-        if (!currentUser) this.setState({redirect: "/home"});
+        if (!currentUser) this.setState({redirect: "/login"});
         this.setState({currentUser: currentUser, userReady: true})
     }
 
@@ -174,7 +228,7 @@ export default class Profile extends Component {
         const {currentUser} = this.state;
         return (
             <div className="profile-section">
-                <div className="container" style={{width: "50%", fontSize: "70%", paddingTop: "9%"}}>
+                <div className="container" style={{width: "40%", fontSize: "70%", paddingTop: "9%"}}>
                     <Form onSubmit={this.handleUpdate}
                         ref={c => {
                             this.form = c;
@@ -182,7 +236,7 @@ export default class Profile extends Component {
                         style={{borderRadius: "20px"}}
                     >
                         {(this.state.userReady) ?
-                            <div style={{backgroundColor: "white", borderRadius: "20px", padding: "5%"}}>
+                            <div style={{backgroundColor: "white", borderRadius: "20px", width:"100%",padding: "5%"}}>
                                 <h2>Profile</h2>
                                 <hr/>
                                 <div>
@@ -190,22 +244,38 @@ export default class Profile extends Component {
                                     <h4>{currentUser.firstname}{" "}{currentUser.lastname}</h4>
                                 </div>
                                 <div>
-                                    Email:{" "}<h4>{currentUser.email}</h4>
+                                    Email:{" "}
                                     <input
-                                        style={{height: "35px"}}
+                                        style={{height: "35px",marginTop:"10px", marginBottom:"10px", width:"100%"}}
                                         type="text"
                                         className="form-control form-rounded"
                                         name="email"
-                                        value={currentUser.email}
+                                        value={this.state.email}
                                         onChange={this.onChangeEmail}
+                                        validations={[vemail]}
                                     />
                                 </div>
                                 <div>
-                                    Address:{" "}<h4>{currentUser.address}</h4></div>
-                                <div>Date of Birth:{" "}<h4>{currentUser.dob}</h4></div>
+                                    Address:{" "}
+                                    <Autocomplete
+                                        onLoad={this.onLoad}
+                                        onPlaceChanged={this.onPlaceChanged}
+                                    >
+                                        <input
+                                            style={{height: "35px",marginTop:"10px", marginBottom:"10px", width:"100%"}}
+                                            className="form-control form-rounded"
+                                            name="address"
+                                            placeholder="Enter your Address here"
+                                            value={this.state.address}
+                                            onChange={this.onChangeAddress}
+                                            validations={[vaddress]}
+                                        />
+                                    </Autocomplete>
+                                </div>
+                                <div >Date of Birth:{" "}<h4 style={{height: "35px",marginTop:"10px", marginBottom:"10px", width:"100%"}}>{currentUser.dob}</h4></div>
                                 <hr/>
                                 <h2 style={{fontSize: "150%"}}>Change Password</h2>
-                                <div style={{width: "75%", display: "block"}}>
+                                <div style={{width: "100%", display: "block"}}>
                                     <div className="form-group">
                                         <label htmlFor="password">Password</label>
                                         <Input
@@ -232,12 +302,20 @@ export default class Profile extends Component {
                                             validations={[required, vconfirmpassword]}
                                         />
                                     </div>
+                                    <hr/>
+
                                     <div className="form-group">
+                                        <ButtonToolbar
+                                            className="justify-content-between "
+                                            aria-label="Toolbar with Button groups" >
+                                            <button  className="btn btn-link" style={{width:"30%",color:"#FF0000",border:"1px #FF0000 solid", borderRadius:"10px"}} onClick={this.handleDelete}>Delete Account</button>
                                         <button
                                             className="btn"
-                                            style={{backgroundColor: "#FF9431", color: "white"}}
+                                            style={{backgroundColor: "#FF9431", color: "white",width:"50%", borderRadius:"10px"}}
                                         >Logout
                                         </button>
+
+                                        </ButtonToolbar>
                                     </div>
                                 </div>
                             </div>

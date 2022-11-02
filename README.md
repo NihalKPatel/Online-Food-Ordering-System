@@ -10,10 +10,10 @@
 
 ```
 module.exports = {
-database: "database name",
-username: "username",
-password: "password",
-host: "host",
+DB: "database name",
+USER: "username",
+PASSWORD: "password",
+HOST: "host",
 dialect: "mysql",
 port: 3306,
     pool: {
